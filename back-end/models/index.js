@@ -1,4 +1,4 @@
 var mongoose = require("mongoose");
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/cryto-exchange");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/crypto-exchange");
 
 module.exports.User = require("./user");
