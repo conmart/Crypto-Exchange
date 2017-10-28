@@ -1,9 +1,19 @@
 var express = require('express');
 var router = express.Router();
+var User = require('../models/user');
 
 // Get Homepage
 router.get('/', function(req, res){
   res.render('index');
+})
+
+router.get('/profile', ensureAuthenticated, function(req, res){
+  User.findById(req.user._id, function(err, foundUser){
+    if (err) throw err;
+    res.render('profile', {
+      name: foundUser.name,
+    })
+  })
 })
 
 function ensureAuthenticated(req, res, next){
@@ -14,5 +24,7 @@ function ensureAuthenticated(req, res, next){
     res.redirect('/');
   }
 }
+
+
 
 module.exports = router;

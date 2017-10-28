@@ -3,20 +3,16 @@ var mongoose = require('mongoose'),
 var passportLocalMongoose = require('passport-local-mongoose')
 var bcrypt = require('bcryptjs');
 
+// var PorfolioSchema = new Schema
+
 var UserSchema = new Schema({
   name: {
     type: String,
     index: true
   },
-  username: {
-    type: String
-  },
-  password: {
-    type: String
-  },
-  balance: {
-    type: Number
-  }
+  username: String,
+  password: String,
+  balance: Number
 });
 
 UserSchema.plugin(passportLocalMongoose)
