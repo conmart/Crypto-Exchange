@@ -27,17 +27,55 @@ $(document).ready(function () {
         {
           label: "baseline",
           fill: false,
-          borderColor: 'rgb(255, 255, 255)',
-          borderDash: [3, 3],
+          borderColor: 'rgb(0, 0, 0)',
+          borderDash: [3, 5],
           pointStyle: 'line',
-          data: [15, 15, 15, 15, 15, 15, 15],
+          data: [13, 13, 13, 13, 13, 13, 13],
 
         }
       ]
     },
-
     // Configuration options go here
     options: {}
   });
 
+createPriceChart();
+getCurrentPrices(['ETH','BTC','DASH']);
+
+// End of document ready
 })
+
+
+function getCurrentPrices(arr){
+  whichCoins = arr.join(',');
+  $prices = $('.display-prices');
+  pricesUrl = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${whichCoins}&tsyms=USD`
+  $.ajax({
+    method: "GET",
+    url: pricesUrl
+  })
+  .then(function(prices) {
+    newHTML = ''
+    arr.forEach((sym) => {
+      let price = prices[sym].USD
+      newHTML += `<p class=${sym}>Current price of ${sym}: $${price} (USD)</p>`
+    })
+    $prices.append(newHTML);
+
+  }).catch(function(err){
+    console.log(err);
+  })
+}
+
+function createPriceChart() {
+  $.ajax({
+    method: "GET",
+    url: "https://min-api.cryptocompare.com/data/histohour?fsym=BTC&tsym=USD&limit=24&aggregate=3&e=CCCAGG"
+  })
+  .then(function(prices){
+    console.log(prices);
+    console.log(prices.Data);
+  }).catch(function(err){
+    console.log(err);
+  })
+}

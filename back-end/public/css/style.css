@@ -1,8 +1,7 @@
-body {
-  background-color: lightgray;
-}
+
 
 canvas {
   max-width: 400px;
   max-height: 400px;
+  margin: 5px;
 }
