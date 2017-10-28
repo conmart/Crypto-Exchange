@@ -36,7 +36,7 @@ router.post('/register', function(req, res){
     console.log(user);
   })
   req.flash('success_msg', 'Registration successful');
-  res.redirect('/profile');
+  res.redirect('/login');
 })
 
 // Login
@@ -74,15 +74,18 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-router.post('/login', passport.authenticate('local', {successRedirect: '/', failureRedirect: '/users/login', failureFlash: true}),
-  function(req, res){
-    res.redirect('/profile');
-})
+// this used to have a callback function - I took it out
+router.post('/login', passport.authenticate('local',
+  {
+    successRedirect: '/profile',
+    failureRedirect: '/users/login',
+    failureFlash: true
+  }));
 
 router.get('/logout', function(req, res){
   req.logout();
   req.flash('success_msg', 'Successfully logged out');
   res.redirect('/');
-})
+});
 
 module.exports = router;
