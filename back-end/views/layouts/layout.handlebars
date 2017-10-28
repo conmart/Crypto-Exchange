@@ -16,6 +16,21 @@
 
   </head>
   <body>
+    <!-- Render error and success messages -->
+    {{#if success_msg}}
+      <div class="col s4 card-panel green lighten-4 green-text text-darken-4">{{success_msg}}</div>
+    {{/if}}
+    {{#if error_msg}}
+      <div class="col s4 card-panel red lighten-4 red-text text-darken-4">{{error_msg}}</div>
+    {{/if}}
+    {{#if error}}
+      <div class="col s4 card-panel red lighten-4 red-text text-darken-4">{{error}}</div>
+    {{/if}}
+
+    {{#if user}}
+      <div> User is logged in </div>
+    {{/if}}
+
     {{{body}}}
   </body>
 </html>
