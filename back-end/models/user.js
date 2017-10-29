@@ -29,7 +29,7 @@ module.exports.createUser = function(newUser, callback) {
     bcrypt.hash(newUser.password, salt, function(err, hash) {
       newUser.password = hash;
       newUser.balance = 10000;
-      newUser.portfolio = { bitcoin: 0, ethereum: 0 };
+      newUser.portfolio = { bitcoin: 1, ethereum: 1 };
       newUser.save(callback);
     });
   });
