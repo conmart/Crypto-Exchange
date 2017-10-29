@@ -12,6 +12,9 @@ router.get('/profile', ensureAuthenticated, function(req, res){
     if (err) throw err;
     res.render('profile', {
       name: foundUser.name,
+      balance: foundUser.balance,
+      portfolio: foundUser.portfolio,
+      username: foundUser.username
     })
   })
 })

@@ -16,6 +16,9 @@ var mongoose = require('mongoose');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+var moment = require('moment');
+moment().format();
+
 // leftover code from previous versions
 var router = express.Router();
 var controllers = require('./controllers');

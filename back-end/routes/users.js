@@ -36,7 +36,7 @@ router.post('/register', function(req, res){
     console.log(user);
   })
   req.flash('success_msg', 'Registration successful');
-  res.redirect('/login');
+  res.redirect('/users/login');
 })
 
 // Login

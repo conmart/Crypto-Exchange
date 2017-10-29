@@ -1,7 +1,42 @@
-<h1> Welcome {{name}} <h1>
+<div class="center-align">
 
-  <canvas id="lineChart" width="400" height="400"></canvas>
+  <h3> Welcome {{name}} <h3>
+
+  <h4> Current Balance: {{balance}} </h4>
+
+  <table>
+    <thead>
+      <tr>
+          <th>Crypto Currency</th>
+          <th>Shares You Own</th>
+          <th>Current Price</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Bitcoin</td>
+        <td>{{portfolio.bitcoin}}</td>
+        <td><span class="BTCPrice">$</span></td>
+      </tr>
+      <tr>
+        <td>Ethereum</td>
+        <td>{{portfolio.ethereum}}</td>
+        <td><span class="ETHPrice">$</span></td>
+      </tr>
+      <!-- <tr>
+        <td>Jonathan</td>
+        <td>Lollipop</td>
+        <td>$7.00</td>
+      </tr> -->
+    </tbody>
+  </table>
+
+
+  <canvas class="BTCChart" width="400" height="400"></canvas>
 
   <div class="center-align">
     <a href="/users/logout" class="btn">Logout</a>
   </div>
+
+</div>
