@@ -1,0 +1,14 @@
+<div class="center-align">
+  <h1>Bitcoin</h1>
+  <h3>${{prices.bitcoin}}</h3>
+  <h3>Your value: {{totalBitcoin}} </h3>
+
+  <canvas class="BTCChart" width="400" height="400"></canvas>
+
+
+  <button class="btn">Buy</button>
+  {{#if portfolio.bitcoin}}
+    <button class="btn">Sell</button>
+  {{/if}}
+
+</div>
