@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+  <header>
+      <% include ../partials/header %>
+  </header>
+
+  <main>
+    <div class="center-align">
+      <h1>Bitcoin</h1>
+      <h3>$<%= prices.bitcoin %></h3>
+
+      <canvas class="BTCChart" width="400" height="400"></canvas>
+
+      <br>
+      <% if (balance > prices.bitcoin) { %>
+        <button class="btn">Buy</button>
+      <% } %>
+      <% if (portfolio.bitcoin) { %>
+        <button class="btn">Sell</button>
+      <% } %>
+
+      <br>
+
+      <div class="row">
+        <div class="col s6">
+          <h4><%= portfolio.bitcoin %></h4>
+          <p>shares</p>
+        </div>
+        <div class="col s6">
+          <h4>$<%= totalBitcoin %></h4>
+          <p>Value</p>
+        </div>
+    </div>
+  </main>
+
+</body>
+
+</html>

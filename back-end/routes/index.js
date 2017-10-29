@@ -5,7 +5,7 @@ var Prices = require('../models/coin');
 
 // Get Homepage
 router.get('/', function(req, res){
-  res.render('index');
+  res.render('pages/index');
 })
 
 router.post('/setprices', function(req, res){
@@ -20,11 +20,11 @@ router.post('/setprices', function(req, res){
 })
 
 router.get('/profile', ensureAuthenticated, function(req, res){
-  findAndReturnUser(req, res, 'profile');
+  findAndReturnUser(req, res, 'pages/profile');
 })
 
 router.get('/bitcoin', ensureAuthenticated, function(req, res){
-  findAndReturnUser(req, res, 'bitcoin');
+  findAndReturnUser(req, res, 'pages/bitcoin');
 })
 
 router.put('/bitcoin/buy', ensureAuthenticated, function(req, res){

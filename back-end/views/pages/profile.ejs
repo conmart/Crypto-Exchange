@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+  <header>
+      <% include ../partials/header %>
+  </header>
+
+  <main>
+    <div class="center-align">
+
+      <h3> Welcome <%= name %> <h3>
+
+      <h4> Your net worth: $<%= totalValue %> </h4>
+
+      <table>
+        <thead>
+          <tr>
+              <th>Crypto Currency</th>
+              <th>Shares You Own</th>
+              <th>Current Price</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td><a href="/bitcoin" class="">Bitcoin</a></td>
+            <td><%= portfolio.bitcoin %></td>
+            <td>$<%= prices.bitcoin %></td>
+          </tr>
+          <tr>
+            <td>Ethereum</td>
+            <td><%= portfolio.ethereum %></td>
+            <td>$<%= prices.ethereum %></td>
+          </tr>
+          <!-- <tr>
+            <td>Jonathan</td>
+            <td>Lollipop</td>
+            <td>$7.00</td>
+          </tr> -->
+        </tbody>
+      </table>
+
+
+      <canvas class="BTCChart" width="400" height="400"></canvas>
+
+      <div class="center-align">
+        <a href="/users/logout" class="btn">Logout</a>
+      </div>
+
+    </div>
+  </main>
+
+</body>
+
+</html>
