@@ -27,6 +27,10 @@ router.get('/bitcoin', ensureAuthenticated, function(req, res){
   findAndReturnUser(req, res, 'bitcoin');
 })
 
+router.put('/bitcoin/buy', ensureAuthenticated, function(req, res){
+  User.findByIdAndUpdate(req.body)
+})
+
 function ensureAuthenticated(req, res, next){
   if(req.isAuthenticated()){
     return next()
@@ -44,14 +48,17 @@ function findAndReturnUser(req, res, page){
     Prices.find({}, function(err, foundPrices){
       if (err) throw err;
       console.log( 'sending prices', foundPrices);
-      let totalBitcoin = foundUser.portfolio.bitcoin * foundPrices[0].bitcoin
+      let totalBitcoin = foundUser.portfolio.bitcoin * foundPrices[0].bitcoin;
+      let totalEthereum = foundUser.portfolio.ethereum * foundPrices[0].ethereum;
+      let totalValue = foundUser.balance + totalEthereum + totalBitcoin;
       res.render(page, {
         name: foundUser.name,
         balance: foundUser.balance,
         portfolio: foundUser.portfolio,
         username: foundUser.username,
         prices: foundPrices[0],
-        totalBitcoin: totalBitcoin
+        totalBitcoin: totalBitcoin,
+        totalValue: totalValue
       })
     })
   })

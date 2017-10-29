@@ -30,13 +30,14 @@ router.post('/register', function(req, res){
       username: username,
       password: password,
     })
+
+    User.createUser(newUser, function(err, user){
+      if (err) throw err;
+      console.log(user);
+    })
+    req.flash('success_msg', 'Registration successful');
+    res.redirect('/users/login');
   }
-  User.createUser(newUser, function(err, user){
-    if (err) throw err;
-    console.log(user);
-  })
-  req.flash('success_msg', 'Registration successful');
-  res.redirect('/users/login');
 })
 
 // Login
