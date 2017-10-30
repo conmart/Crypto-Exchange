@@ -28,8 +28,8 @@ module.exports.createUser = function(newUser, callback) {
   bcrypt.genSalt(10, function(err, salt) {
     bcrypt.hash(newUser.password, salt, function(err, hash) {
       newUser.password = hash;
-      newUser.balance = 100;
-      newUser.portfolio = { bitcoin: 0, ethereum: 1 };
+      newUser.balance = 15000;
+      newUser.portfolio = { bitcoin: 1, ethereum: 1 };
       newUser.save(callback);
     });
   });

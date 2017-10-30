@@ -10,7 +10,7 @@ var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
-
+var methodOverride = require('method-override');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -27,6 +27,7 @@ var User = db.User;
 // Initialize App
 var app = express();
 
+
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -35,6 +36,9 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+// Method Override
+app.use(methodOverride("_method"));
 
 // Set Static Folder
 app.use(express.static(path.join(__dirname, 'public')));

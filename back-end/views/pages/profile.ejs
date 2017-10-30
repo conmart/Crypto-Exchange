@@ -12,9 +12,11 @@
   <main>
     <div class="center-align">
 
-      <h3> Welcome <%= name %> <h3>
+      <h3> Welcome <%= user.name %> <h3>
 
-      <h4> Your net worth: $<%= totalValue %> </h4>
+      <h4> Your net worth: $<%= user.balance
+        + user.portfolio.ethereum * prices.ethereum
+        + user.portfolio.bitcoin * prices.bitcoin %> </h4>
 
       <table>
         <thead>
@@ -28,12 +30,12 @@
         <tbody>
           <tr>
             <td><a href="/bitcoin" class="">Bitcoin</a></td>
-            <td><%= portfolio.bitcoin %></td>
+            <td><%= user.portfolio.bitcoin %></td>
             <td>$<%= prices.bitcoin %></td>
           </tr>
           <tr>
             <td>Ethereum</td>
-            <td><%= portfolio.ethereum %></td>
+            <td><%= user.portfolio.ethereum %></td>
             <td>$<%= prices.ethereum %></td>
           </tr>
           <!-- <tr>
