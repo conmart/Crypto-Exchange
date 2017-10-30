@@ -5,3 +5,7 @@ canvas {
   max-height: 600px;
   margin: 5px;
 }
+
+.coinAmount {
+  max-width: 100px;
+}

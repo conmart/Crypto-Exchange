@@ -13,12 +13,18 @@
     <div class="center-align">
 
       <h3> Welcome <%= user.name %> <h3>
+        <% let totalValue = (user.balance
+          + user.portfolio.ethereum * prices.ethereum
+          + user.portfolio.bitcoin * prices.bitcoin).toFixed(2) %>
+      <h4> Your net worth: $<%= totalValue %> </h4>
+      <% let diff = totalValue - user.startingValue %>
+      <% if (diff > 0) { %>
+        <p>&uarr; + <%=diff.toFixed(2)%> (<%=((diff/user.startingValue) * 100).toFixed(2)  %>%)</p>
+      <% } else if (diff < 0) { %>
+        <p>&darr; <%=diff.toFixed(2)%> (<%=((diff/user.startingValue) * 100).toFixed(2)  %>%)</p>
+      <% } %>
 
-      <h4> Your net worth: $<%= (user.balance
-        + user.portfolio.ethereum * prices.ethereum
-        + user.portfolio.bitcoin * prices.bitcoin).toFixed(2) %> </h4>
-
-      <h5>Cash: $<%= user.balance.toFixed(2) %></h5>
+      <h5>Cash: $<%= user.balance.toFixed(2)%>  </h5>
 
       <table>
         <thead>
@@ -51,8 +57,8 @@
         </tbody>
       </table>
 
-
-      <canvas class="BTCChart" width="400" height="400"></canvas>
+      <br>
+      <br>
 
       <div class="center-align">
         <a href="/users/logout" class="btn">Logout</a>

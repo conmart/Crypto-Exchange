@@ -8,7 +8,7 @@ router.get('/', function(req, res){
   res.render('pages/index');
 })
 
-router.post('/setprices', function(req, res){
+router.post('/:anything/setprices', function(req, res){
   Prices.deleteMany({}, function(err){
     if (err) throw err;
     Prices.create(req.body, function(err, prices){
@@ -39,16 +39,13 @@ router.get('/:coin/show', ensureAuthenticated, function(req, res){
 
 router.put('/:coin/:price/buy', ensureAuthenticated, function(req, res){
   var coin = req.params.coin
-  console.log('price from params', req.params.price);
-  console.log('user ID', req.user._id);
-  console.log('coin', coin);
+  var amount = parseInt(req.body.numCoins);
   User.findById(req.user._id, function(err, user){
     if (err) throw err;
-    user.balance = user.balance - req.params.price;
-    user.portfolio[coin] += 1;
+    user.balance = user.balance - (req.params.price * amount);
+    user.portfolio[coin] += amount;
     user.save(function(err, savedUser){
       if (err) throw err;
-      console.log(savedUser);
       Prices.find({}, function(err, foundPrices){
         if (err) throw err;
         res.render('pages/coinShow', {
@@ -63,16 +60,13 @@ router.put('/:coin/:price/buy', ensureAuthenticated, function(req, res){
 
 router.put('/:coin/:price/sell', ensureAuthenticated, function(req, res){
   var coin = req.params.coin
-  console.log('sell price from params', req.params.price);
-  console.log('sell user ID', req.user._id);
-  console.log('selling coin', coin);
+  var amount = parseInt(req.body.numCoins);
   User.findById(req.user._id, function(err, foundUser){
     if (err) throw err;
-    foundUser.balance += parseInt(req.params.price);
-    foundUser.portfolio[coin] = foundUser.portfolio[coin] - 1;
+    foundUser.balance += (parseInt(req.params.price) * amount);
+    foundUser.portfolio[coin] = foundUser.portfolio[coin] - amount;
     foundUser.save(function(err, savedUser){
       if (err) throw err;
-      console.log(savedUser);
       Prices.find({}, function(err, foundPrices){
         if (err) throw err;
         res.render('pages/coinShow', {
