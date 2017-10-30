@@ -26,26 +26,33 @@ router.get('/api/users', function(req, res){
 })
 
 router.get('/profile', ensureAuthenticated, function(req, res){
-  findAndReturnUser(req, res, 'pages/profile');
+  findAndReturnUser(req, res, 'pages/profile', 'none');
 })
 
 router.get('/bitcoin', ensureAuthenticated, function(req, res){
-  findAndReturnUser(req, res, 'pages/bitcoin');
+  findAndReturnUser(req, res, 'pages/bitcoin', 'bitcoin');
 })
 
-router.put('/bitcoin/:price/buy', ensureAuthenticated, function(req, res){
+router.get('/:coin/show', ensureAuthenticated, function(req, res){
+  findAndReturnUser(req, res, 'pages/coinShow', req.params.coin)
+})
+
+router.put('/:coin/:price/buy', ensureAuthenticated, function(req, res){
+  var coin = req.params.coin
   console.log('price from params', req.params.price);
   console.log('user ID', req.user._id);
+  console.log('coin', coin);
   User.findById(req.user._id, function(err, user){
     if (err) throw err;
     user.balance = user.balance - req.params.price;
-    user.portfolio.bitcoin += 1;
+    user.portfolio[coin] += 1;
     user.save(function(err, savedUser){
       if (err) throw err;
       console.log(savedUser);
       Prices.find({}, function(err, foundPrices){
         if (err) throw err;
-        res.render('pages/bitcoin', {
+        res.render('pages/coinShow', {
+          coin: coin,
           user: savedUser,
           prices: foundPrices[0],
         })
@@ -54,19 +61,22 @@ router.put('/bitcoin/:price/buy', ensureAuthenticated, function(req, res){
   })
 })
 
-router.put('/bitcoin/:price/sell', ensureAuthenticated, function(req, res){
+router.put('/:coin/:price/sell', ensureAuthenticated, function(req, res){
+  var coin = req.params.coin
   console.log('sell price from params', req.params.price);
   console.log('sell user ID', req.user._id);
+  console.log('selling coin', coin);
   User.findById(req.user._id, function(err, foundUser){
     if (err) throw err;
-    foundUser.balance += req.params.price;
-    foundUser.portfolio.bitcoin = foundUser.portfolio.bitcoin + 1;
+    foundUser.balance += parseInt(req.params.price);
+    foundUser.portfolio[coin] = foundUser.portfolio[coin] - 1;
     foundUser.save(function(err, savedUser){
       if (err) throw err;
       console.log(savedUser);
       Prices.find({}, function(err, foundPrices){
         if (err) throw err;
-        res.render('pages/bitcoin', {
+        res.render('pages/coinShow', {
+          coin: coin,
           user: savedUser,
           prices: foundPrices[0],
         })
@@ -87,7 +97,7 @@ function ensureAuthenticated(req, res, next){
 
 
 
-function findAndReturnUser(req, res, page){
+function findAndReturnUser(req, res, page, coin){
   User.findById(req.user._id, function(err, foundUser){
     if (err) throw err;
     Prices.find({}, function(err, foundPrices){
@@ -96,6 +106,7 @@ function findAndReturnUser(req, res, page){
       res.render(page, {
         user: foundUser,
         prices: foundPrices[0],
+        coin: coin
       })
     })
   })

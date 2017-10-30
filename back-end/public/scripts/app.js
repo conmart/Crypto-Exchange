@@ -95,13 +95,14 @@ function getCurrentPrices(arr){
     })
     $prices.append(newHTML);
     createPriceChart();
+    createETHPriceChart();
   }).catch(function(err){
     console.log(err);
   })
 }
 
 function createPriceChart() {
-  let $BTC = $('.BTCChart');
+  let $BTC = $('.bitcoinChart');
   $.ajax({
     method: "GET",
     url: "https://min-api.cryptocompare.com/data/histohour?fsym=BTC&tsym=USD&limit=24&aggregate=3&e=CCCAGG"
@@ -128,6 +129,63 @@ function createPriceChart() {
           datasets: [
             {
               label: "Price of BTC",
+              fill: false,
+              lineTension: 0.1,
+              backgroundColor: 'rgb(255, 99, 132)',
+              borderCapStyle: 'butt',
+              borderDash:[],
+              borderDashOffset: 0.0,
+              borderJoinStyle: 'miter',
+              pointBorderWidth: 1,
+              pointRadius: 1,
+              borderColor: 'rgb(255, 99, 132)',
+              data: finalValues
+          },
+          {
+            label: "Baseline",
+            fill: false,
+            borderColor: 'rgb(0, 0, 0)',
+            borderDash: [3, 5],
+            pointStyle: 'line',
+            data: baselineArr,
+
+          }
+        ]
+      },
+    });
+  }).catch(function(err){
+    console.log(err);
+  })
+}
+
+function createETHPriceChart() {
+  let $ETH = $('.ethereumChart');
+  $.ajax({
+    method: "GET",
+    url: "https://min-api.cryptocompare.com/data/histohour?fsym=ETH&tsym=USD&limit=24&aggregate=3&e=CCCAGG"
+  })
+  .then(function(prices){
+    // console.log('from currentPrices', currentPrices);
+    priceArr = prices.Data;
+    let priceTimes = priceArr.map((dataPoint) => { return dataPoint.time});
+    let priceValues = priceArr.map((dataPoint) => { return dataPoint.open});
+    // console.log('times arr', priceTimes);
+    // console.log('prices arr', priceValues);
+    let baselinePrice = priceValues[19];
+    let baselineArr = [baselinePrice, baselinePrice, baselinePrice, baselinePrice, baselinePrice, baselinePrice]
+    let finalTimes = priceTimes.slice(20, 25);
+    let finalValues = priceValues.slice(20,25);
+    finalTimes.push(1509225293);
+    finalValues.push(currentPrices.ETH);
+    console.log(finalValues);
+    let ethereumChart = new Chart($ETH, {
+      // The type of chart we want to create
+      type: 'line',
+      data: {
+          labels: finalTimes,
+          datasets: [
+            {
+              label: "Price of ETH",
               fill: false,
               lineTension: 0.1,
               backgroundColor: 'rgb(255, 99, 132)',
