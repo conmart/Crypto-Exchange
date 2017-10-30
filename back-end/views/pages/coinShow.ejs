@@ -45,25 +45,23 @@
     <div id=<%= "buy" + user.username %> class="modal">
       <div class="modal-content">
         <h4>Confirm Purchase:</h4>
-        <p>You are about to buy 1 <%= coin %> for <%=prices[coin]%></p>
+        <p>How many <%= coin %> tokens would you like to buy at $<%=prices[coin]%> each?</p>
       </div>
-      <div class="modal-footer">
-        <form method="POST" action="/<%=coin%>/<%= prices[coin] %>/buy?_method=put">
-      		<button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Buy</button>
-      	</form>
-      </div>
+      <form method="POST" action="/<%=coin%>/<%= prices[coin] %>/buy?_method=put">
+        <input type="number" name="numCoins" value="1" class="coinAmount" min="1" max="<%= Math.floor(user.balance/prices[coin]) %>">
+        <button type="submit" class="modal-action modal-close waves-effect waves-green btn">Buy</button>
+      </form>
     </div>
 
     <div id=<%= "sell" + user.username %> class="modal">
       <div class="modal-content">
         <h4>Confirm Sale:</h4>
-        <p>You are about to sell 1 <%= coin %> for <%=prices[coin]%></p>
+        <p>How many <%= coin %> tokens would you like to sell at <%=prices[coin]%> each?</p>
       </div>
-      <div class="modal-footer">
-        <form method="POST" action="/<%=coin%>/<%= prices[coin] %>/sell?_method=put">
-      		<button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Sell</button>
-      	</form>
-      </div>
+      <form method="POST" action="/<%=coin%>/<%= prices[coin] %>/sell?_method=put">
+        <input type="number" name="numCoins" value="1" class="coinAmount" min="1" max="<%= user.portfolio[coin] %>">
+    		<button type="submit" class="modal-action modal-close waves-effect waves-green btn">Sell</button>
+    	</form>
     </div>
   </main>
 

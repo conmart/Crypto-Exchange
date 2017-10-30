@@ -19,9 +19,9 @@
       <h4> Your net worth: $<%= totalValue %> </h4>
       <% let diff = totalValue - user.startingValue %>
       <% if (diff > 0) { %>
-        <p>&uarr; + <%=diff.toFixed(2)%> (<%=(diff/user.startingValue).toFixed(4) %>)</p>
+        <p>&uarr; + <%=diff.toFixed(2)%> (<%=((diff/user.startingValue) * 100).toFixed(2)  %>%)</p>
       <% } else if (diff < 0) { %>
-        <p>&darr; <%=diff.toFixed(2)%> (<%=(diff/user.startingValue).toFixed(4) %>)</p>
+        <p>&darr; <%=diff.toFixed(2)%> (<%=((diff/user.startingValue) * 100).toFixed(2)  %>%)</p>
       <% } %>
 
       <h5>Cash: $<%= user.balance.toFixed(2)%>  </h5>
@@ -57,8 +57,8 @@
         </tbody>
       </table>
 
-
-      <canvas class="BTCChart" width="400" height="400"></canvas>
+      <br>
+      <br>
 
       <div class="center-align">
         <a href="/users/logout" class="btn">Logout</a>
