@@ -18,12 +18,12 @@
 
       <br>
       <% if (user.balance > prices[coin]) { %>
-        <a class="waves-effect waves-light btn modal-trigger" href="#buyBitcoin">Buy</a>
+        <a class="waves-effect waves-light btn modal-trigger" href=<%="#buy"+user.username%>>Buy</a>
       <% } else { %>
         <p> You don't have enough funds to purchase <%=coin%> </p>
       <% } %>
       <% if (user.portfolio[coin]) { %>
-        <a class="waves-effect waves-light btn modal-trigger" href="#sellBitcoin">Sell</a>
+        <a class="waves-effect waves-light btn modal-trigger" href=<%="#sell"+user.username%>>Sell</a>
       <% } %>
 
       <br>
@@ -41,7 +41,7 @@
 
     <a href="/profile" class="">Back to profile</a>
 
-    <div id="buyBitcoin" class="modal">
+    <div id=<%= "buy" + user.username %> class="modal">
       <div class="modal-content">
         <h4>Confirm Purchase:</h4>
         <p>You are about to buy 1 <%= coin %> for <%=prices[coin]%></p>
@@ -53,7 +53,7 @@
       </div>
     </div>
 
-    <div id="sellBitcoin" class="modal">
+    <div id=<%= "sell" + user.username %> class="modal">
       <div class="modal-content">
         <h4>Confirm Sale:</h4>
         <p>You are about to sell 1 <%= coin %> for <%=prices[coin]%></p>
