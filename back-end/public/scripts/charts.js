@@ -36,7 +36,7 @@ function getCurrentPrices(arr){
       newHTML += `<p class=${sym}>Current price of ${sym}: $${price} (USD)</p>`
     })
     $prices.append(newHTML);
-    console.log(currentCoin);
+    // console.log(currentCoin);
     if (currentCoin) {
       createPriceChart(currentCoin);
     }
@@ -47,10 +47,10 @@ function getCurrentPrices(arr){
 
 function createPriceChart(coin) {
   let coinSym = coinLookup[coin];
-  console.log(coinSym);
+  // console.log(coinSym);
   let $destination = $(`.${coin}Chart`);
   let getUrl = `https://min-api.cryptocompare.com/data/histohour?fsym=${coinSym}&tsym=USD&limit=24&aggregate=3&e=CCCAGG`;
-  console.log(getUrl);
+  // console.log(getUrl);
   $.ajax({
     method: "GET",
     url: getUrl

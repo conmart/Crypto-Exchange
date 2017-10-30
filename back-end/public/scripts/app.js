@@ -17,14 +17,14 @@ function setCurrentPrices(){
     let sentPrices = {};
     sentPrices.bitcoin = prices.BTC.USD;
     sentPrices.ethereum = prices.ETH.USD;
-    console.log('sending prices', sentPrices);
+    // console.log('sending prices', sentPrices);
     $.ajax({
       method: "POST",
       url: "setprices",
       data: sentPrices
     })
     .then(function(response){
-      console.log("received resonponse", response);
+      // console.log("received resonponse", response);
     }).catch(function(err){
       console.log(err);
     })

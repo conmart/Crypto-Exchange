@@ -13,7 +13,7 @@ router.post('/:anything/setprices', function(req, res){
     if (err) throw err;
     Prices.create(req.body, function(err, prices){
       if (err) throw err;
-      console.log(prices);
+      // console.log(prices);
       res.send("Set Prices")
     })
   })
@@ -96,7 +96,7 @@ function findAndReturnUser(req, res, page, coin){
     if (err) throw err;
     Prices.find({}, function(err, foundPrices){
       if (err) throw err;
-      console.log( 'sending prices', foundPrices);
+      // console.log( 'sending prices', foundPrices);
       res.render(page, {
         user: foundUser,
         prices: foundPrices[0],

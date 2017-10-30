@@ -41,7 +41,7 @@
             <td><a href="/bitcoin/show">Bitcoin</a></td>
             <td><%= user.portfolio.bitcoin %></td>
             <td>$<%= prices.bitcoin %></td>
-            <td>$<%= user.portfolio.bitcoin * prices.bitcoin %></td>
+            <td>$<%= (user.portfolio.bitcoin * prices.bitcoin).toFixed(2) %></td>
           </tr>
           <tr>
             <td><a href="/ethereum/show">Ethereum</a></td>
