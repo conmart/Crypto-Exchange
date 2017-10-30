@@ -1,0 +1,9 @@
+<% if (success_msg.length > 0) {%>
+  <div class="col s4 card-panel green lighten-4 green-text text-darken-4"><%=success_msg%></div>
+<% } %>
+<% if (error_msg.length > 0) {%>
+  <div class="col s4 card-panel red lighten-4 red-text text-darken-4"><%=error_msg%></div>
+<% } %>
+<% if (error.length > 0) {%>
+  <div class="col s4 card-panel red lighten-4 red-text text-darken-4"><%= error %></div>
+<% } %>

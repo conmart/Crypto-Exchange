@@ -16,6 +16,7 @@ var UserSchema = new Schema({
   username: String,
   password: String,
   balance: Number,
+  startingValue: Number,
   portfolio: PortfolioSchema
 });
 
@@ -28,8 +29,9 @@ module.exports.createUser = function(newUser, callback) {
   bcrypt.genSalt(10, function(err, salt) {
     bcrypt.hash(newUser.password, salt, function(err, hash) {
       newUser.password = hash;
-      newUser.balance = 10000;
-      newUser.portfolio = { bitcoin: 1, ethereum: 1 };
+      newUser.balance = 20000;
+      newUser.startingValue = 20000;
+      newUser.portfolio = { bitcoin: 0, ethereum: 0 };
       newUser.save(callback);
     });
   });

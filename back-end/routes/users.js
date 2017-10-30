@@ -6,7 +6,9 @@ var LocalStrategy = require('passport-local').Strategy;
 
 // Registration
 router.get('/register', function(req, res){
-  res.render('register');
+  res.render('pages/register', {
+    errors: []
+  });
 })
 
 router.post('/register', function(req, res){
@@ -21,7 +23,7 @@ router.post('/register', function(req, res){
   var errors = req.validationErrors();
 
   if(errors){
-    res.render('register', {
+    res.render('pages/register', {
       errors: errors
     });
   } else {
@@ -30,18 +32,19 @@ router.post('/register', function(req, res){
       username: username,
       password: password,
     })
+
+    User.createUser(newUser, function(err, user){
+      if (err) throw err;
+      console.log(user);
+    })
+    req.flash('success_msg', 'Registration successful');
+    res.redirect('/users/login');
   }
-  User.createUser(newUser, function(err, user){
-    if (err) throw err;
-    console.log(user);
-  })
-  req.flash('success_msg', 'Registration successful');
-  res.redirect('/users/login');
 })
 
 // Login
 router.get('/login', function(req, res){
-  res.render('login');
+  res.render('pages/login');
 })
 
 

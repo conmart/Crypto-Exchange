@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+  <header>
+      <% include ../partials/header %>
+  </header>
+
+  <main>
+    <div class="center-align">
+      <h1><%= coin %></h1>
+      <h3>$<%= prices[coin].toFixed(2) %></h3>
+
+      <canvas class=<%= coin + "Chart" %> width="400" height="400"></canvas>
+
+      <br>
+      <% if (user.balance > prices[coin]) { %>
+        <a class="waves-effect waves-light btn modal-trigger" href=<%="#buy"+user.username%>>Buy</a>
+      <% } else { %>
+        <p> You don't have enough funds to purchase <%=coin%> </p>
+      <% } %>
+      <% if (user.portfolio[coin]) { %>
+        <a class="waves-effect waves-light btn modal-trigger" href=<%="#sell"+user.username%>>Sell</a>
+      <% } %>
+
+      <br>
+
+      <div class="row">
+        <div class="col s6">
+          <h4><%= user.portfolio[coin] %></h4>
+          <p>shares</p>
+        </div>
+        <div class="col s6">
+          <h4>$<%= (user.portfolio[coin] * prices[coin]).toFixed(2) %></h4>
+          <p>Value</p>
+        </div>
+    </div>
+
+    <a href="/profile" class="">Back to profile</a>
+
+    <div id=<%= "buy" + user.username %> class="modal">
+      <div class="modal-content">
+        <h4>Confirm Purchase:</h4>
+        <p>You are about to buy 1 <%= coin %> for <%=prices[coin]%></p>
+      </div>
+      <div class="modal-footer">
+        <form method="POST" action="/<%=coin%>/<%= prices[coin] %>/buy?_method=put">
+      		<button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Buy</button>
+      	</form>
+      </div>
+    </div>
+
+    <div id=<%= "sell" + user.username %> class="modal">
+      <div class="modal-content">
+        <h4>Confirm Sale:</h4>
+        <p>You are about to sell 1 <%= coin %> for <%=prices[coin]%></p>
+      </div>
+      <div class="modal-footer">
+        <form method="POST" action="/<%=coin%>/<%= prices[coin] %>/sell?_method=put">
+      		<button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Sell</button>
+      	</form>
+      </div>
+    </div>
+  </main>
+
+</body>
+
+</html>
