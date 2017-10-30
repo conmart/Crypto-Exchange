@@ -8,7 +8,7 @@ router.get('/', function(req, res){
   res.render('pages/index');
 })
 
-router.post('/setprices', function(req, res){
+router.post('/:anything/setprices', function(req, res){
   Prices.deleteMany({}, function(err){
     if (err) throw err;
     Prices.create(req.body, function(err, prices){
