@@ -11,9 +11,7 @@ $(document).ready(function () {
   $('.modal').modal();
 
   console.log('charts.js loaded - sanity check');
-
   currentCoin = window.location.pathname.split('/')[1];
-  console.log('currentCoin', currentCoin);
 
   getCurrentPrices(['ETH','BTC','ZEC']);
 
@@ -60,18 +58,18 @@ function createPriceChart(coin) {
   .then(function(prices){
     // console.log('from currentPrices', currentPrices);
     priceArr = prices.Data;
-    let priceTimes = priceArr.map((dataPoint) => { return dataPoint.time});
+    let priceTimes = priceArr.map((dataPoint) => { return moment.unix(dataPoint.time).fromNow();});
     let priceValues = priceArr.map((dataPoint) => { return dataPoint.open});
     // console.log('times arr', priceTimes);
     // console.log('prices arr', priceValues);
-    let baselinePrice = priceValues[19];
-    let baselineArr = [baselinePrice, baselinePrice, baselinePrice, baselinePrice, baselinePrice, baselinePrice]
-    let finalTimes = priceTimes.slice(20, 25);
-    let finalValues = priceValues.slice(20,25);
+    let baselinePrice = priceValues[15];
+    let finalTimes = priceTimes.slice(16, 25);
+    let finalValues = priceValues.slice(16,25);
     finalTimes.push("Now");
-    console.log('current price of coin', currentPrices[coinSym]);
+    // console.log('current price of coin', currentPrices[coinSym]);
     finalValues.push(currentPrices[coinSym]);
-    console.log(finalValues);
+    // console.log(finalValues);
+    let baselineArr = finalTimes.map((time) => { return baselinePrice});
     let newPriceChart = new Chart($destination, {
       type: 'line',
       data: {
