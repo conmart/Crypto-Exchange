@@ -25,6 +25,7 @@ var router = express.Router();
 var controllers = require('./controllers');
 var db = require('./models');
 var User = db.User;
+var Prices = db.Prices;
 
 // Initialize App
 var app = express();
@@ -90,38 +91,31 @@ app.use('/', routes);
 app.use('/users', users)
 
 
-fetchUrl("https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,ZEC,DASH&tsyms=USD", function(error, meta, body){
-    console.log('body from fetch', body);
-    // console.log('fetch BTC', body.BTC.USD);
-});
+var apiUrl = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,ZEC,DASH&tsyms=USD";
 
 
+function getMyData(){
+  fetchUrl(apiUrl, function(error, meta, body){
+      let data = JSON.parse(body.toString())
+      let newPrices = {
+        bitcoin: data.BTC.USD,
+        ethereum: data.ETH.USD,
+        zcash: data.ZEC.USD,
+        dash: data.DASH.USD,
+      }
+      Prices.deleteMany({}, function(err){
+        if (err) throw err;
+        Prices.create(newPrices, function(err, prices){
+          if (err) throw err;
+          // console.log('saved prices', prices);
+          setTimeout(getMyData, 5000);
+        })
+      })
+  });
+}
 
-// fetch("https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,ZEC,DASH&tsyms=USD")
-// .then(function(response) {
-//   if(response.ok) {
-//     console.log('response from fetch', response);
-//     console.log('BTC from fetch', response.BTC.USD);
-//   }
-//   throw new Error('Network response was not ok.');
-//   }).catch(function(error) {
-//     console.log('There has been a problem with your fetch operation: ' + error.message);
-//   });
+getMyData();
 
-
-
-// (function worker() {
-//   $.ajax({
-//     url: 'ajax/test.html',
-//     success: function(data) {
-//       $('.result').html(data);
-//     },
-//     complete: function() {
-//       // Schedule the next request when the current one's complete
-//       setTimeout(worker, 5000);
-//     }
-//   });
-// })();
 
 // Initialize Port
 app.set('port', process.env.PORT || 3000);
