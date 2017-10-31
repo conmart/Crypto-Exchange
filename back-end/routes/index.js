@@ -29,10 +29,6 @@ router.get('/profile', ensureAuthenticated, function(req, res){
   findAndReturnUser(req, res, 'pages/profile', 'none');
 })
 
-router.get('/bitcoin', ensureAuthenticated, function(req, res){
-  findAndReturnUser(req, res, 'pages/bitcoin', 'bitcoin');
-})
-
 router.get('/:coin/show', ensureAuthenticated, function(req, res){
   findAndReturnUser(req, res, 'pages/coinShow', req.params.coin)
 })
@@ -56,11 +52,7 @@ router.put('/:coin/:price/buy', ensureAuthenticated, function(req, res){
       if (err) throw err;
       Prices.find({}, function(err, foundPrices){
         if (err) throw err;
-        res.render('pages/coinShow', {
-          coin: coin,
-          user: savedUser,
-          prices: foundPrices[0],
-        })
+        res.redirect(`/${coin}/show`)
       })
     })
   })
@@ -80,11 +72,7 @@ router.put('/:coin/:price/sell', ensureAuthenticated, function(req, res){
       if (err) throw err;
       Prices.find({}, function(err, foundPrices){
         if (err) throw err;
-        res.render('pages/coinShow', {
-          coin: coin,
-          user: savedUser,
-          prices: foundPrices[0],
-        })
+        res.redirect(`/${coin}/show`)
       })
     })
   })
