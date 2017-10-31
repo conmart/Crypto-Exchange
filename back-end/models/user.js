@@ -8,6 +8,11 @@ var PortfolioSchema = new Schema({
   ethereum: Number
 })
 
+var AvgCostSchema = new Schema({
+  bitcoin: Number,
+  ethereum: Number
+})
+
 var UserSchema = new Schema({
   name: {
     type: String,
@@ -17,7 +22,8 @@ var UserSchema = new Schema({
   password: String,
   balance: Number,
   startingValue: Number,
-  portfolio: PortfolioSchema
+  portfolio: PortfolioSchema,
+  costs: AvgCostSchema
 });
 
 UserSchema.plugin(passportLocalMongoose)
@@ -32,6 +38,7 @@ module.exports.createUser = function(newUser, callback) {
       newUser.balance = 20000;
       newUser.startingValue = 20000;
       newUser.portfolio = { bitcoin: 0, ethereum: 0 };
+      newUser.costs = { bitcoin: 0, ethereum: 0 };
       newUser.save(callback);
     });
   });
