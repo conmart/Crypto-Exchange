@@ -40,6 +40,21 @@
         </div>
     </div>
 
+    <% if (user.portfolio[coin] > 0 ) { %>
+      <div>
+        <div>
+          <h4> Average Cost: <%=(user.costs[coin]).toFixed(2) %> </h4>
+        </div>
+        <% let costDiff = prices[coin] - user.costs[coin] %>
+        <div>
+          <h4>
+            Total Return: $<%= (costDiff * user.portfolio[coin]).toFixed(2) %>
+            (<%=((costDiff/user.costs[coin]) * 100).toFixed(2)  %>%)
+          </h4>
+        </div>
+      </div>
+    <% } %>
+
     <a href="/profile" class="">Back to profile</a>
 
     <div id=<%= "buy" + user.username %> class="modal">

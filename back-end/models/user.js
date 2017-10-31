@@ -5,7 +5,16 @@ var bcrypt = require('bcryptjs');
 
 var PortfolioSchema = new Schema({
   bitcoin: Number,
-  ethereum: Number
+  ethereum: Number,
+  zcash: Number,
+  dash: Number
+})
+
+var AvgCostSchema = new Schema({
+  bitcoin: Number,
+  ethereum: Number,
+  zcash: Number,
+  dash: Number
 })
 
 var UserSchema = new Schema({
@@ -17,7 +26,8 @@ var UserSchema = new Schema({
   password: String,
   balance: Number,
   startingValue: Number,
-  portfolio: PortfolioSchema
+  portfolio: PortfolioSchema,
+  costs: AvgCostSchema
 });
 
 UserSchema.plugin(passportLocalMongoose)
@@ -31,7 +41,8 @@ module.exports.createUser = function(newUser, callback) {
       newUser.password = hash;
       newUser.balance = 20000;
       newUser.startingValue = 20000;
-      newUser.portfolio = { bitcoin: 0, ethereum: 0 };
+      newUser.portfolio = { bitcoin: 0, ethereum: 0, zcash: 0, dash: 0};
+      newUser.costs = { bitcoin: 0, ethereum: 0, zcash: 0, dash: 0};
       newUser.save(callback);
     });
   });
