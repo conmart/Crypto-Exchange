@@ -12,16 +12,14 @@
   <main>
     <div class="center-align">
 
-      <% let coinsArr = ['bitcoin', 'ethereum', 'zcash', 'dash'] %>
+      <% let totalValue = user.balance %>
+      <% user.portfolio.schema.eachPath(function(path) {
+        if (path != '_id') { totalValue += user.portfolio[path] * prices[path] }
+      }) %>
 
       <h3> Welcome <%= user.name %> <h3>
-        <!-- refactor this -->
-        <% let totalValue = (user.balance
-          + user.portfolio.ethereum * prices.ethereum
-          + user.portfolio.bitcoin * prices.bitcoin
-          + user.portfolio.zcash * prices.zcash
-          + user.portfolio.dash * prices.dash).toFixed(2) %>
-      <h4> Your net worth: $<%= totalValue %> </h4>
+
+      <h4> Your net worth: $<%= (totalValue).toFixed(2) %> </h4>
       <% let diff = totalValue - user.startingValue %>
       <% if (diff > 0) { %>
         <p>&uarr; + <%=diff.toFixed(2)%> (<%=((diff/user.startingValue) * 100).toFixed(2)  %>%)</p>

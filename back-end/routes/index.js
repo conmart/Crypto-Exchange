@@ -88,8 +88,6 @@ function ensureAuthenticated(req, res, next){
   }
 }
 
-
-
 function findAndReturnUser(req, res, page, coin){
   User.findById(req.user._id, function(err, foundUser){
     if (err) throw err;
@@ -104,6 +102,5 @@ function findAndReturnUser(req, res, page, coin){
     })
   })
 }
-
 
 module.exports = router;
