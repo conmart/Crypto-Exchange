@@ -42,11 +42,21 @@ router.put('/:coin/:price/buy', ensureAuthenticated, function(req, res){
   var amount = parseInt(req.body.numCoins);
   User.findById(req.user._id, function(err, user){
     if (err) throw err;
-    let purchaseTotal = req.params.price * amount
+    let purchaseTotal = req.params.price * amount;
+    console.log('purchase total', purchaseTotal);
     user.balance = user.balance - purchaseTotal;
-    let newAvg = (user.costs[coin] * user.portfolio[coin] + purchaseTotal)/(amount + user.portfolio[coin])
-    console.log(newAvg);
+    let newAvgNum = (parseInt(user.costs[coin]) * parseInt(user.portfolio[coin])
+      + purchaseTotal);
+    console.log('user costs', parseInt(user.costs[coin]));
+    console.log('portfolio', parseInt(user.portfolio[coin]));
+    // console.log('second purchaseTotal', parseInt(purchaseTotal));
+    console.log(newAvgNum);
+    let newAvgDenom = (parseInt(amount) + parseInt(user.portfolio[coin]));
+    console.log(newAvgDenom);
+    let newAvg = newAvgNum/newAvgDenom;
+    console.log('new avg', newAvg);
     user.costs[coin] = newAvg;
+    debugger
     user.portfolio[coin] += amount;
     user.save(function(err, savedUser){
       if (err) throw err;
