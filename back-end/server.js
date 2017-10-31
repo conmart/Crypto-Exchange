@@ -15,6 +15,8 @@ var methodOverride = require('method-override');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+var fetchUrl = require("fetch").fetchUrl;
+
 var moment = require('moment');
 moment().format();
 
@@ -86,6 +88,40 @@ app.use(function (req, res, next) {
 
 app.use('/', routes);
 app.use('/users', users)
+
+
+fetchUrl("https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,ZEC,DASH&tsyms=USD", function(error, meta, body){
+    console.log('body from fetch', body);
+    // console.log('fetch BTC', body.BTC.USD);
+});
+
+
+
+// fetch("https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,ZEC,DASH&tsyms=USD")
+// .then(function(response) {
+//   if(response.ok) {
+//     console.log('response from fetch', response);
+//     console.log('BTC from fetch', response.BTC.USD);
+//   }
+//   throw new Error('Network response was not ok.');
+//   }).catch(function(error) {
+//     console.log('There has been a problem with your fetch operation: ' + error.message);
+//   });
+
+
+
+// (function worker() {
+//   $.ajax({
+//     url: 'ajax/test.html',
+//     success: function(data) {
+//       $('.result').html(data);
+//     },
+//     complete: function() {
+//       // Schedule the next request when the current one's complete
+//       setTimeout(worker, 5000);
+//     }
+//   });
+// })();
 
 // Initialize Port
 app.set('port', process.env.PORT || 3000);
