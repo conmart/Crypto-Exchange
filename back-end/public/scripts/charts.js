@@ -3,7 +3,8 @@ let currentCoin;
 let coinLookup = {
   ethereum: 'ETH',
   bitcoin: 'BTC',
-  zcash: 'ZEC'
+  zcash: 'ZEC',
+  dash: 'DASH'
 };
 
 $(document).ready(function () {
@@ -13,7 +14,7 @@ $(document).ready(function () {
   console.log('charts.js loaded - sanity check');
   currentCoin = window.location.pathname.split('/')[1];
 
-  getCurrentPrices(['ETH','BTC','ZEC']);
+  getCurrentPrices(['ETH','BTC','ZEC','DASH']);
 
 
 // End of document ready

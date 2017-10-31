@@ -5,12 +5,16 @@ var bcrypt = require('bcryptjs');
 
 var PortfolioSchema = new Schema({
   bitcoin: Number,
-  ethereum: Number
+  ethereum: Number,
+  zcash: Number,
+  dash: Number
 })
 
 var AvgCostSchema = new Schema({
   bitcoin: Number,
-  ethereum: Number
+  ethereum: Number,
+  zcash: Number,
+  dash: Number
 })
 
 var UserSchema = new Schema({
@@ -37,8 +41,8 @@ module.exports.createUser = function(newUser, callback) {
       newUser.password = hash;
       newUser.balance = 20000;
       newUser.startingValue = 20000;
-      newUser.portfolio = { bitcoin: 0, ethereum: 0 };
-      newUser.costs = { bitcoin: 0, ethereum: 0 };
+      newUser.portfolio = { bitcoin: 0, ethereum: 0, zcash: 0, dash: 0};
+      newUser.costs = { bitcoin: 0, ethereum: 0, zcash: 0, dash: 0};
       newUser.save(callback);
     });
   });

@@ -4,7 +4,9 @@ var mongoose = require('mongoose'),
 
 var PricesSchema = new Schema({
   bitcoin: Number,
-  ethereum: Number
+  ethereum: Number,
+  zcash: Number,
+  dash: Number
 })
 
 var Prices = mongoose.model('Prices', PricesSchema);

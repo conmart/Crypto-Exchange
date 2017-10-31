@@ -1,14 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
-var Prices = require('../models/coin');
+var Prices = require('../models/price');
 
 // Get Homepage
 router.get('/', function(req, res){
   res.render('pages/index');
 })
 
-router.post('/:anything/setprices', function(req, res){
+router.post('/setprices', function(req, res){
   Prices.deleteMany({}, function(err){
     if (err) throw err;
     Prices.create(req.body, function(err, prices){
@@ -43,18 +43,12 @@ router.put('/:coin/:price/buy', ensureAuthenticated, function(req, res){
   User.findById(req.user._id, function(err, user){
     if (err) throw err;
     let purchaseTotal = req.params.price * amount;
-    console.log('purchase total', purchaseTotal);
+    // console.log('purchase total', purchaseTotal);
     user.balance = user.balance - purchaseTotal;
-    let newAvgNum = (parseInt(user.costs[coin]) * parseInt(user.portfolio[coin])
+    let newAvgNum = (parseFloat(user.costs[coin]) * parseInt(user.portfolio[coin])
       + purchaseTotal);
-    console.log('user costs', parseInt(user.costs[coin]));
-    console.log('portfolio', parseInt(user.portfolio[coin]));
-    // console.log('second purchaseTotal', parseInt(purchaseTotal));
-    console.log(newAvgNum);
     let newAvgDenom = (parseInt(amount) + parseInt(user.portfolio[coin]));
-    console.log(newAvgDenom);
-    let newAvg = newAvgNum/newAvgDenom;
-    console.log('new avg', newAvg);
+    let newAvg = (newAvgNum/newAvgDenom).toFixed(2);
     user.costs[coin] = newAvg;
     debugger
     user.portfolio[coin] += amount;
