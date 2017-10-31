@@ -108,7 +108,8 @@ function getMyData(){
         Prices.create(newPrices, function(err, prices){
           if (err) throw err;
           // console.log('saved prices', prices);
-          setTimeout(getMyData, 5000);
+          // Change this to 5000 before demo
+          setTimeout(getMyData, 1000000);
         })
       })
   });

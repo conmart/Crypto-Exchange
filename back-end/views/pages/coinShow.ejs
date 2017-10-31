@@ -43,7 +43,7 @@
     <% if (user.portfolio[coin] > 0 ) { %>
       <div>
         <div>
-          <h4> Average Cost: <%=(user.costs[coin]).toFixed(2) %> </h4>
+          <h4> Average Cost: $<%=(user.costs[coin]).toFixed(2) %> </h4>
         </div>
         <% let costDiff = prices[coin] - user.costs[coin] %>
         <div>
