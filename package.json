@@ -1,0 +1,19 @@
+{
+  "name": "crypto-exchange",
+  "version": "1.0.0",
+  "description": "",
+  "main": "back-end/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/conmart/Crypto-Exchange.git"
+  },
+  "author": "Connor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/conmart/Crypto-Exchange/issues"
+  },
+  "homepage": "https://github.com/conmart/Crypto-Exchange#readme"
+}
