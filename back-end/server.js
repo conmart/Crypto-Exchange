@@ -15,6 +15,8 @@ var methodOverride = require('method-override');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+var fetchUrl = require("fetch").fetchUrl;
+
 var moment = require('moment');
 moment().format();
 
@@ -23,6 +25,7 @@ var router = express.Router();
 var controllers = require('./controllers');
 var db = require('./models');
 var User = db.User;
+var Prices = db.Prices;
 
 // Initialize App
 var app = express();
@@ -86,6 +89,33 @@ app.use(function (req, res, next) {
 
 app.use('/', routes);
 app.use('/users', users)
+
+
+var apiUrl = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,ZEC,DASH&tsyms=USD";
+
+
+function getMyData(){
+  fetchUrl(apiUrl, function(error, meta, body){
+      let data = JSON.parse(body.toString())
+      let newPrices = {
+        bitcoin: data.BTC.USD,
+        ethereum: data.ETH.USD,
+        zcash: data.ZEC.USD,
+        dash: data.DASH.USD,
+      }
+      Prices.deleteMany({}, function(err){
+        if (err) throw err;
+        Prices.create(newPrices, function(err, prices){
+          if (err) throw err;
+          // console.log('saved prices', prices);
+          setTimeout(getMyData, 5000);
+        })
+      })
+  });
+}
+
+getMyData();
+
 
 // Initialize Port
 app.set('port', process.env.PORT || 3000);

@@ -8,17 +8,6 @@ router.get('/', function(req, res){
   res.render('pages/index');
 })
 
-router.post('/setprices', function(req, res){
-  Prices.deleteMany({}, function(err){
-    if (err) throw err;
-    Prices.create(req.body, function(err, prices){
-      if (err) throw err;
-      // console.log(prices);
-      res.send("Set Prices")
-    })
-  })
-})
-
 router.get('/api/users', function(req, res){
   User.find({}, function(err, allUsers){
     res.json(allUsers);
