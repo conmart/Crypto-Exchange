@@ -97,9 +97,10 @@ function createPriceChart(coin) {
               data: finalValues
           },
           {
-            label: "Baseline",
+            label: "Previous Price",
             fill: false,
-            borderColor: 'rgb(225, 225, 225)',
+            borderColor: 'rgb(214, 91, 255)',
+            borderWidth: 4,
             borderDash: [3, 5],
             pointStyle: 'line',
             data: baselineArr,
@@ -118,8 +119,7 @@ function createPriceChart(coin) {
           xAxes: [{
             display: true,
             gridLines: {
-              display: true,
-              color: "white"
+              display: false
             },
             ticks: {
               fontColor: "white",
@@ -139,7 +139,8 @@ function createPriceChart(coin) {
             scaleLabel: {
               display: true,
               labelString: 'Value in USD',
-              fontColor: "white"
+              fontColor: "white",
+              fontSize: 25
             }
           }]
         }

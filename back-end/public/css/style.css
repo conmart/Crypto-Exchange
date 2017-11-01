@@ -39,10 +39,6 @@ nav {
   color: #3f3f3f;
 }
 
-#logged-in-side-menu {
-  z-index: 999;
-}
-
 .btn:hover {
   background: transparent;
   border-style: solid;
