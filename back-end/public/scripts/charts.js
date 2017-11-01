@@ -4,7 +4,8 @@ let coinLookup = {
   ethereum: 'ETH',
   bitcoin: 'BTC',
   zcash: 'ZEC',
-  dash: 'DASH'
+  dash: 'DASH',
+  litecoin: 'LTC'
 };
 
 $(document).ready(function () {
@@ -14,7 +15,7 @@ $(document).ready(function () {
   console.log('charts.js loaded - sanity check');
   currentCoin = window.location.pathname.split('/')[1];
 
-  getCurrentPrices(['ETH','BTC','ZEC','DASH']);
+  getCurrentPrices(['ETH','BTC','ZEC','DASH','LTC']);
 
 
 // End of document ready
@@ -30,14 +31,10 @@ function getCurrentPrices(arr){
     url: pricesUrl
   })
   .then(function(prices) {
-    newHTML = ''
     arr.forEach((sym) => {
       let price = prices[sym].USD
       currentPrices[sym] = price
-      newHTML += `<p class=${sym}>Current price of ${sym}: $${price} (USD)</p>`
     })
-    $prices.append(newHTML);
-    // console.log(currentCoin);
     if (currentCoin) {
       createPriceChart(currentCoin);
     }
@@ -67,6 +64,12 @@ function createPriceChart(coin) {
     let finalTimes = priceTimes.slice(16, 25);
     let finalValues = priceValues.slice(16,25);
     finalTimes.push("Now");
+    let chartColor;
+    if (baselinePrice <= currentPrices[coinSym]) {
+      chartColor = 'rgb(9, 196, 115)';
+    } else {
+      chartColor = 'rgb(226, 4, 4)';
+    }
     // console.log('current price of coin', currentPrices[coinSym]);
     finalValues.push(currentPrices[coinSym]);
     // console.log(finalValues);
@@ -80,20 +83,21 @@ function createPriceChart(coin) {
               label: `Price of ${coin}`,
               fill: false,
               lineTension: 0.1,
-              backgroundColor: 'rgb(255, 99, 132)',
+              backgroundColor: 'rgb(63, 63, 63)',
               borderCapStyle: 'butt',
               borderDash:[],
               borderDashOffset: 0.0,
               borderJoinStyle: 'miter',
               pointBorderWidth: 1,
               pointRadius: 1,
-              borderColor: 'rgb(255, 99, 132)',
+              borderColor: chartColor,
               data: finalValues
           },
           {
-            label: "Baseline",
+            label: "Previous Price",
             fill: false,
-            borderColor: 'rgb(0, 0, 0)',
+            borderColor: 'rgb(214, 91, 255)',
+            borderWidth: 4,
             borderDash: [3, 5],
             pointStyle: 'line',
             data: baselineArr,
@@ -101,6 +105,43 @@ function createPriceChart(coin) {
           }
         ]
       },
+      options: {
+        legend: {
+            labels: {
+                fontColor: "white",
+                fontSize: 18
+            }
+        },
+        scales: {
+          xAxes: [{
+            display: true,
+            gridLines: {
+              display: false
+            },
+            ticks: {
+              fontColor: "white",
+              fontSize: 20
+            }
+          }],
+          yAxes: [{
+            display: true,
+            gridLines: {
+              display: true,
+              color: "white"
+            },
+            ticks: {
+              fontColor: "white",
+              fontSize: 20
+            },
+            scaleLabel: {
+              display: true,
+              labelString: 'Value in USD',
+              fontColor: "white",
+              fontSize: 25
+            }
+          }]
+        }
+      }
     });
   }).catch(function(err){
     console.log(err);

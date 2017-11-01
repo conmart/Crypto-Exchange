@@ -6,7 +6,8 @@ var PricesSchema = new Schema({
   bitcoin: Number,
   ethereum: Number,
   zcash: Number,
-  dash: Number
+  dash: Number,
+  litecoin: Number
 })
 
 var Prices = mongoose.model('Prices', PricesSchema);
