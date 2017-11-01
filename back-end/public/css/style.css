@@ -1,11 +1,88 @@
+body {
+  font-family: 'Oxygen', sans-serif;
+  background-color: #3f3f3f;
+  color: white;
+  letter-spacing: .7px;
+}
 
+nav {
+  background-color: #09c473;
+}
+
+.table-body a {
+  text-decoration: underline;
+  color: white;
+}
+
+.main-table {
+  font-size: 20px;
+}
+
+.modal-content {
+  color: black;
+}
+
+.exchange-form {
+  color: black;
+}
+
+.insufficient-funds {
+  font-size: 25px;
+}
+
+.footer-btn {
+  margin-bottom: 40px;
+}
+
+.btn {
+  background-color: #09c473;
+  color: #3f3f3f;
+}
+
+#logged-in-side-menu {
+  z-index: 999;
+}
+
+.btn:hover {
+  background: transparent;
+  border-style: solid;
+  border-color: #09c473;
+  color: #09c473;
+}
+
+.user-form {
+  margin: 10%;
+}
 
 canvas {
-  max-width: 800px;
+  max-width: 90vw;
   max-height: 600px;
-  margin: 5px;
+  margin-left: 5%;
 }
 
 .coinAmount {
   max-width: 100px;
+}
+
+.landing-page-body {
+  background-image: url(http://www.richardcayne.com/wp-content/uploads/2017/08/2016-09-14-1473882679-3868833-bitcoin-3.jpg);
+  background-size: cover;
+  height: 100vh;
+}
+
+.landing-page-content {
+  color: white;
+  margin-top: 100px;
+}
+
+.landing-page-button {
+  margin: 30px;
+}
+
+.positive-return {
+  color: #09c473;
+}
+
+.negative-return {
+  color: #e20404;
 }

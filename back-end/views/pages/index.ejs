@@ -2,23 +2,31 @@
 <html lang="en">
 <head>
     <% include ../partials/head %>
-    <script src="/scripts/charts.js"></script>
+    <!-- <script src="/scripts/charts.js"></script> -->
 </head>
-<body class="container">
+<body class="landing-page-body">
 
   <header>
-      <% include ../partials/header %>
+    <% if (success_msg.length > 0) {%>
+      <div class="col s4 card-panel green lighten-4 green-text text-darken-4"><%=success_msg%></div>
+    <% } %>
+    <% if (error_msg.length > 0) {%>
+      <div class="col s4 card-panel red lighten-4 red-text text-darken-4"><%=error_msg%></div>
+    <% } %>
+    <% if (error.length > 0) {%>
+      <div class="col s4 card-panel red lighten-4 red-text text-darken-4"><%= error %></div>
+    <% } %>
   </header>
 
-  <main>
+  <main class="center-align landing-page-content">
     <h1>Welcome to Crypto-Exchange</h1>
 
-    <div class="center-align">
+    <div>
 
-      <a href="/users/register" class="btn">Sign Up</a>
-      <a href="/users/login" class="btn">Login</a>
+      <a href="/users/register" class="btn landing-page-button">Sign Up</a>
+      <a href="/users/login" class="btn landing-page-button">Login</a>
 
-      <div class="display-prices"></div>
+      <!-- <div class="display-prices"></div> -->
 
     </div>
   </main>

@@ -1,3 +1,22 @@
+<div class="navbar-fixed">
+  <nav>
+    <div class="nav-wrapper">
+      <% if (user) { %>
+        <a href="/profile" class="brand-logo">Crypto-Exchange</a>
+        <a href="#" data-activates="logged-in-side-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="/users/logout">Logout</a></li>
+        </ul>
+        <ul class="side-nav" id="logged-in-side-menu">
+          <li><a href="/users/logout">Logout</a></li>
+        </ul>
+      <% } else { %>
+        <a href="/" class="brand-logo center">Crypto-Exchange</a>
+      <% } %>
+    </div>
+  </nav>
+</div>
+
 <% if (success_msg.length > 0) {%>
   <div class="col s4 card-panel green lighten-4 green-text text-darken-4"><%=success_msg%></div>
 <% } %>

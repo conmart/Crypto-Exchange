@@ -4,7 +4,7 @@
     <% include ../partials/head %>
     <script src="/scripts/charts.js"></script>
 </head>
-<body class="container">
+<body>
 
   <header>
       <% include ../partials/header %>
@@ -17,11 +17,12 @@
 
       <canvas class=<%= coin + "Chart" %> width="400" height="400"></canvas>
 
+      <h5>Buying Power: $<%= user.balance.toFixed(2) %> </h5>
       <br>
       <% if (user.balance > prices[coin]) { %>
         <a class="waves-effect waves-light btn modal-trigger" href=<%="#buy"+user.username%>>Buy</a>
       <% } else { %>
-        <p> You don't have enough funds to purchase <%=coin%> </p>
+        <p class="insufficient-funds"> You don't have enough funds to purchase <%=coin%> </p>
       <% } %>
       <% if (user.portfolio[coin]) { %>
         <a class="waves-effect waves-light btn modal-trigger" href=<%="#sell"+user.username%>>Sell</a>
@@ -38,31 +39,48 @@
           <h4>$<%= (user.portfolio[coin] * prices[coin]).toFixed(2) %></h4>
           <p>Value</p>
         </div>
-    </div>
+      </div>
+
+      <hr>
+
 
     <% if (user.portfolio[coin] > 0 ) { %>
       <div>
-        <div>
-          <h4> Average Cost: $<%=(user.costs[coin]).toFixed(2) %> </h4>
+        <div class="row">
+          <div class="col s6">
+            <h4>Average Cost:</h4>
+          </div>
+          <div class="col s6">
+            <h4>$<%=(user.costs[coin]).toFixed(2) %></h4>
+          </div>
         </div>
+        <hr>
         <% let costDiff = prices[coin] - user.costs[coin] %>
-        <div>
-          <h4>
-            Total Return: $<%= (costDiff * user.portfolio[coin]).toFixed(2) %>
-            (<%=((costDiff/user.costs[coin]) * 100).toFixed(2)  %>%)
-          </h4>
+        <div <% if (costDiff >= 0) { %> class="row positive-return"
+          <% } else { %> class="row negative-return"<%}%>>
+          <div class="col s6">
+            <h4>Total Return:</h4>
+          </div>
+          <div class="col s6">
+            <h4>$<%= (costDiff * user.portfolio[coin]).toFixed(2) %>
+            (<%=((costDiff/user.costs[coin]) * 100).toFixed(2)  %>%)</h4>
+          </div>
         </div>
       </div>
     <% } %>
 
-    <a href="/profile" class="">Back to profile</a>
+    <a href="/profile" class="btn footer-btn">Return to profile</a>
+
+    <br>
+    <br>
+    </div>
 
     <div id=<%= "buy" + user.username %> class="modal">
       <div class="modal-content">
         <h4>Confirm Purchase:</h4>
         <p>How many <%= coin %> tokens would you like to buy at $<%=prices[coin]%> each?</p>
       </div>
-      <form method="POST" action="/<%=coin%>/<%= prices[coin] %>/buy?_method=put">
+      <form class="exchange-form" method="POST" action="/<%=coin%>/<%= prices[coin] %>/buy?_method=put">
         <input type="number" name="numCoins" value="1" class="coinAmount" min="1" max="<%= Math.floor(user.balance/prices[coin]) %>">
         <button type="submit" class="modal-action modal-close waves-effect waves-green btn">Buy</button>
       </form>
@@ -73,7 +91,7 @@
         <h4>Confirm Sale:</h4>
         <p>How many <%= coin %> tokens would you like to sell at <%=prices[coin]%> each?</p>
       </div>
-      <form method="POST" action="/<%=coin%>/<%= prices[coin] %>/sell?_method=put">
+      <form class="exchange-form" method="POST" action="/<%=coin%>/<%= prices[coin] %>/sell?_method=put">
         <input type="number" name="numCoins" value="1" class="coinAmount" min="1" max="<%= user.portfolio[coin] %>">
     		<button type="submit" class="modal-action modal-close waves-effect waves-green btn">Sell</button>
     	</form>
