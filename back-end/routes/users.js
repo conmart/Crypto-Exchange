@@ -77,7 +77,6 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-// this used to have a callback function - I took it out
 router.post('/login', passport.authenticate('local',
   {
     successRedirect: '/profile',

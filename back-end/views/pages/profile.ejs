@@ -44,7 +44,7 @@
           <tr class='clickable-row' data-href="/bitcoin/show">
             <td><big><a href="/bitcoin/show">Bitcoin</a></big></td>
             <td><%= user.portfolio.bitcoin %></td>
-            <td>$<%= prices.bitcoin %></td>
+            <td>$<%= (prices.bitcoin).toFixed(2) %></td>
             <td>$<%= (user.portfolio.bitcoin * prices.bitcoin).toFixed(2) %></td>
             <% if (user.costs.bitcoin) { %>
               <% let bitcoinDiff = prices.bitcoin - user.costs.bitcoin %>
@@ -58,7 +58,7 @@
           <tr>
             <td><big><a href="/ethereum/show">Ethereum</a></big></td>
             <td><%= user.portfolio.ethereum %></td>
-            <td>$<%= prices.ethereum %></td>
+            <td>$<%= (prices.ethereum).toFixed(2) %></td>
             <td>$<%= (user.portfolio.ethereum * prices.ethereum).toFixed(2) %></td>
             <% if (user.costs.ethereum) { %>
               <% let ethereumDiff = prices.ethereum - user.costs.ethereum %>
@@ -72,7 +72,7 @@
           <tr>
             <td><big><a href="/zcash/show">Z Cash</a></big></td>
             <td><%= user.portfolio.zcash %></td>
-            <td>$<%= prices.zcash %></td>
+            <td>$<%= (prices.zcash).toFixed(2) %></td>
             <td>$<%= (user.portfolio.zcash * prices.zcash).toFixed(2) %></td>
             <% if (user.costs.zcash) { %>
               <% let zcashDiff = prices.zcash - user.costs.zcash %>
@@ -86,7 +86,7 @@
           <tr>
             <td><big><a href="/dash/show">Dash</a></big></td>
             <td><%= user.portfolio.dash %></td>
-            <td>$<%= prices.dash %></td>
+            <td>$<%= (prices.dash).toFixed(2) %></td>
             <td>$<%= (user.portfolio.dash * prices.dash).toFixed(2) %></td>
             <% if (user.costs.dash) { %>
               <% let dashDiff = prices.dash - user.costs.dash %>
@@ -100,7 +100,7 @@
           <tr>
             <td><big><a href="/litecoin/show">Litecoin</a></big></td>
             <td><%= user.portfolio.litecoin %></td>
-            <td>$<%= prices.litecoin %></td>
+            <td>$<%= (prices.litecoin).toFixed(2) %></td>
             <td>$<%= (user.portfolio.litecoin * prices.litecoin).toFixed(2) %></td>
             <% if (user.costs.litecoin) { %>
               <% let litecoinDiff = prices.litecoin - user.costs.litecoin %>

@@ -20,7 +20,7 @@
         </ul>
         <ul class="side-nav" id="logged-in-side-menu">
           <li><a>Username: <%= user.username %></a></li>
-          <li><a>Buying Power: <%= user.balance.toFixed(2) %></a></li>
+          <li><a>Buying Power: $<%= user.balance.toFixed(2) %></a></li>
           <li><a href="/profile">Dashboard</a></li>
           <li><a href="/bitcoin/show">Bitcoin</a></li>
           <li><a href="/ethereum/show">Ethereum</a></li>
