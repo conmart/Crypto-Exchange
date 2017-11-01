@@ -22,7 +22,6 @@ moment().format();
 
 // leftover code from previous versions
 var router = express.Router();
-var controllers = require('./controllers');
 var db = require('./models');
 var User = db.User;
 var Prices = db.Prices;

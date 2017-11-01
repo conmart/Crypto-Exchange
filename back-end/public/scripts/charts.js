@@ -10,21 +10,17 @@ let coinLookup = {
 
 $(document).ready(function () {
 
-  $('.modal').modal();
-
   console.log('charts.js loaded - sanity check');
+
   currentCoin = window.location.pathname.split('/')[1];
 
   getCurrentPrices(['ETH','BTC','ZEC','DASH','LTC']);
 
-
-// End of document ready
 })
 
 
 function getCurrentPrices(arr){
   let whichCoins = arr.join(',');
-  let $prices = $('.display-prices');
   let pricesUrl = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${whichCoins}&tsyms=USD`
   $.ajax({
     method: "GET",
@@ -45,34 +41,32 @@ function getCurrentPrices(arr){
 
 function createPriceChart(coin) {
   let coinSym = coinLookup[coin];
-  // console.log(coinSym);
   let $destination = $(`.${coin}Chart`);
   let getUrl = `https://min-api.cryptocompare.com/data/histohour?fsym=${coinSym}&tsym=USD&limit=24&aggregate=3&e=CCCAGG`;
-  // console.log(getUrl);
   $.ajax({
     method: "GET",
     url: getUrl
   })
   .then(function(prices){
-    // console.log('from currentPrices', currentPrices);
+    // Format received price data to just show for the past ~24 hours with the most recent price as the last data point
     priceArr = prices.Data;
-    let priceTimes = priceArr.map((dataPoint) => { return moment.unix(dataPoint.time).fromNow();});
+    let priceTimes = priceArr.map((dataPoint) => { return moment.unix(dataPoint.time).fromNow() });
     let priceValues = priceArr.map((dataPoint) => { return dataPoint.open});
-    // console.log('times arr', priceTimes);
-    // console.log('prices arr', priceValues);
     let baselinePrice = priceValues[15];
     let finalTimes = priceTimes.slice(16, 25);
     let finalValues = priceValues.slice(16,25);
     finalTimes.push("Now");
+    finalValues.push(currentPrices[coinSym]);
+
+    // set chart color based on recent token price performance
     let chartColor;
     if (baselinePrice <= currentPrices[coinSym]) {
       chartColor = 'rgb(9, 196, 115)';
     } else {
       chartColor = 'rgb(226, 4, 4)';
     }
-    // console.log('current price of coin', currentPrices[coinSym]);
-    finalValues.push(currentPrices[coinSym]);
-    // console.log(finalValues);
+
+    // Set horizontal line based on the price before chart cutoff
     let baselineArr = finalTimes.map((time) => { return baselinePrice});
     let newPriceChart = new Chart($destination, {
       type: 'line',
