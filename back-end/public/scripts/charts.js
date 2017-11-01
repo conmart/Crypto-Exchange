@@ -4,7 +4,8 @@ let coinLookup = {
   ethereum: 'ETH',
   bitcoin: 'BTC',
   zcash: 'ZEC',
-  dash: 'DASH'
+  dash: 'DASH',
+  litecoin: 'LTC'
 };
 
 $(document).ready(function () {
@@ -14,7 +15,7 @@ $(document).ready(function () {
   console.log('charts.js loaded - sanity check');
   currentCoin = window.location.pathname.split('/')[1];
 
-  getCurrentPrices(['ETH','BTC','ZEC','DASH']);
+  getCurrentPrices(['ETH','BTC','ZEC','DASH','LTC']);
 
 
 // End of document ready
@@ -30,14 +31,10 @@ function getCurrentPrices(arr){
     url: pricesUrl
   })
   .then(function(prices) {
-    newHTML = ''
     arr.forEach((sym) => {
       let price = prices[sym].USD
       currentPrices[sym] = price
-      newHTML += `<p class=${sym}>Current price of ${sym}: $${price} (USD)</p>`
     })
-    $prices.append(newHTML);
-    // console.log(currentCoin);
     if (currentCoin) {
       createPriceChart(currentCoin);
     }

@@ -91,7 +91,7 @@ app.use('/', routes);
 app.use('/users', users)
 
 
-var apiUrl = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,ZEC,DASH&tsyms=USD";
+var apiUrl = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,ZEC,DASH,LTC&tsyms=USD";
 
 
 function getMyData(){
@@ -102,6 +102,7 @@ function getMyData(){
         ethereum: data.ETH.USD,
         zcash: data.ZEC.USD,
         dash: data.DASH.USD,
+        litecoin: data.LTC.USD
       }
       Prices.deleteMany({}, function(err){
         if (err) throw err;
