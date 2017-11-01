@@ -1,13 +1,32 @@
+<ul id="dropdown1" class="dropdown-content">
+  <li><a href="/profile">Dashboard</a></li>
+  <li><a href="/bitcoin/show">Bitcoin</a></li>
+  <li><a href="/ethereum/show">Ethereum</a></li>
+  <li><a href="/zcash/show">Z Cash</a></li>
+  <li><a href="/dash/show">Dash</a></li>
+  <li><a href="/litecoin/show">Litecoin</a></li>
+  <li><a href="/users/logout">Logout</a></li>
+</ul>
+
 <div class="navbar-fixed">
   <nav>
     <div class="nav-wrapper">
       <% if (user) { %>
-        <a href="/profile" class="brand-logo">Crypto-Exchange</a>
+        <a href="/profile" class="brand-logo center">Crypto-Exchange</a>
         <a href="#" data-activates="logged-in-side-menu" class="button-collapse"><i class="material-icons">menu</i></a>
-        <ul class="right hide-on-med-and-down">
-          <li><a href="/users/logout">Logout</a></li>
+        <ul class="left hide-on-med-and-down">
+          <!-- Dropdown Trigger -->
+          <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Menu<i class="material-icons right">arrow_drop_down</i></a></li>
         </ul>
         <ul class="side-nav" id="logged-in-side-menu">
+          <li><a>Username: <%= user.username %></a></li>
+          <li><a>Buying Power: <%= user.balance.toFixed(2) %></a></li>
+          <li><a href="/profile">Dashboard</a></li>
+          <li><a href="/bitcoin/show">Bitcoin</a></li>
+          <li><a href="/ethereum/show">Ethereum</a></li>
+          <li><a href="/zcash/show">Z Cash</a></li>
+          <li><a href="/dash/show">Dash</a></li>
+          <li><a href="/litecoin/show">Litecoin</a></li>
           <li><a href="/users/logout">Logout</a></li>
         </ul>
       <% } else { %>

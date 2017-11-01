@@ -9,6 +9,10 @@ nav {
   background-color: #09c473;
 }
 
+#sidenav-overlay {
+  z-index: 9;
+}
+
 .table-body a {
   text-decoration: underline;
   color: white;
@@ -31,6 +35,7 @@ nav {
 }
 
 .footer-btn {
+  margin-top: 20px;
   margin-bottom: 40px;
 }
 

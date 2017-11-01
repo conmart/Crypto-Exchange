@@ -19,7 +19,7 @@
 
       <h3> Welcome, <%= user.name %> <h3>
 
-      <h4> Your net worth: $<%= (totalValue).toFixed(2) %> </h4>
+      <h4> Total Value: $<%= (totalValue).toFixed(2) %> </h4>
       <% let diff = totalValue - user.startingValue %>
       <% if (diff > 0) { %>
         <p class="positive-return">&uarr; + $<%=diff.toFixed(2)%> (<%=((diff/user.startingValue) * 100).toFixed(2)  %>%)</p>
@@ -27,7 +27,7 @@
         <p class="negative-return">&darr; $<%=diff.toFixed(2)%> (<%=((diff/user.startingValue) * 100).toFixed(2)  %>%)</p>
       <% } %>
 
-      <h5>Cash: $<%= user.balance.toFixed(2)%>  </h5>
+      <h5>Buying Power: $<%= user.balance.toFixed(2)%>  </h5>
 
       <table class="centered bordered main-table">
         <thead>
