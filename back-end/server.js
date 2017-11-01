@@ -3,7 +3,6 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var exphbs = require('express-handlebars');
 var expressValidator = require('express-validator');
 var flash = require('connect-flash');
 var session = require('express-session');
@@ -20,15 +19,12 @@ var fetchUrl = require("fetch").fetchUrl;
 var moment = require('moment');
 moment().format();
 
-// leftover code from previous versions
 var router = express.Router();
 var db = require('./models');
-var User = db.User;
 var Prices = db.Prices;
 
 // Initialize App
 var app = express();
-
 
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
@@ -66,7 +62,6 @@ app.use(expressValidator({
     while (namespace.length) {
       formParam += '[' + namespace.shift() + ']';
     }
-
     return {
       param: formParam,
       msg: msg,
@@ -89,9 +84,7 @@ app.use(function (req, res, next) {
 app.use('/', routes);
 app.use('/users', users)
 
-
 var apiUrl = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,ZEC,DASH,LTC&tsyms=USD";
-
 
 function getMyData(){
   fetchUrl(apiUrl, function(error, meta, body){
@@ -116,7 +109,6 @@ function getMyData(){
 }
 
 getMyData();
-
 
 // Initialize Port
 app.set('port', process.env.PORT || 3000);

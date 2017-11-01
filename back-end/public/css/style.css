@@ -51,6 +51,10 @@ nav {
   color: #09c473;
 }
 
+.btn:focus {
+  background-color:  #09c473;
+}
+
 .user-form {
   margin: 10%;
 }

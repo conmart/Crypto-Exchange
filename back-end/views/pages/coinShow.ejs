@@ -5,14 +5,13 @@
     <script src="/scripts/charts.js"></script>
 </head>
 <body>
-
   <header>
       <% include ../partials/header %>
   </header>
-
   <main>
 
     <div class="center-align">
+
       <h1><%= coin %></h1>
       <h3>$<%= prices[coin].toFixed(2) %></h3>
 
@@ -44,36 +43,33 @@
 
       <hr>
 
-
-    <% if (user.portfolio[coin] > 0 ) { %>
-      <div>
-        <div class="row">
-          <div class="col s6">
-            <h4>Average Cost:</h4>
+      <% if (user.portfolio[coin] > 0 ) { %>
+        <div>
+          <div class="row">
+            <div class="col s6">
+              <h4>Average Cost:</h4>
+            </div>
+            <div class="col s6">
+              <h4>$<%=(user.costs[coin]).toFixed(2) %></h4>
+            </div>
           </div>
-          <div class="col s6">
-            <h4>$<%=(user.costs[coin]).toFixed(2) %></h4>
+          <hr>
+          <% let costDiff = prices[coin] - user.costs[coin] %>
+          <div <% if (costDiff >= 0) { %> class="row positive-return"
+            <% } else { %> class="row negative-return"<%}%>>
+            <div class="col s6">
+              <h4>Total Return:</h4>
+            </div>
+            <div class="col s6">
+              <h4>$<%= (costDiff * user.portfolio[coin]).toFixed(2) %>
+              (<%=((costDiff/user.costs[coin]) * 100).toFixed(2)  %>%)</h4>
+            </div>
           </div>
         </div>
-        <hr>
-        <% let costDiff = prices[coin] - user.costs[coin] %>
-        <div <% if (costDiff >= 0) { %> class="row positive-return"
-          <% } else { %> class="row negative-return"<%}%>>
-          <div class="col s6">
-            <h4>Total Return:</h4>
-          </div>
-          <div class="col s6">
-            <h4>$<%= (costDiff * user.portfolio[coin]).toFixed(2) %>
-            (<%=((costDiff/user.costs[coin]) * 100).toFixed(2)  %>%)</h4>
-          </div>
-        </div>
-      </div>
-    <% } %>
+      <% } %>
 
-    <a href="/profile" class="btn footer-btn">Return to dashboard</a>
+      <a href="/profile" class="btn footer-btn">Return to dashboard</a>
 
-    <br>
-    <br>
     </div>
 
     <div id=<%= "buy" + user.username %> class="modal center-align">
@@ -98,7 +94,5 @@
     	</form>
     </div>
   </main>
-
 </body>
-
 </html>
