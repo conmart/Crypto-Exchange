@@ -34,6 +34,11 @@ nav {
   font-size: 25px;
 }
 
+.portfolio-return {
+  font-size: 25px;
+  margin: 0;
+}
+
 .footer-btn {
   margin-top: 20px;
   margin-bottom: 40px;

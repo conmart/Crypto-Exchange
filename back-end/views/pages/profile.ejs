@@ -22,9 +22,9 @@
       <h4> Total Value: $<%= (totalValue).toFixed(2) %> </h4>
       <% let diff = totalValue - user.startingValue %>
       <% if (diff > 0) { %>
-        <p class="positive-return">&uarr; + $<%=diff.toFixed(2)%> (<%=((diff/user.startingValue) * 100).toFixed(2)  %>%)</p>
+        <p class="positive-return portfolio-return">&uarr; + $<%=diff.toFixed(2)%> (<%=((diff/user.startingValue) * 100).toFixed(2)  %>%)</p>
       <% } else if (diff < 0) { %>
-        <p class="negative-return">&darr; $<%=diff.toFixed(2)%> (<%=((diff/user.startingValue) * 100).toFixed(2)  %>%)</p>
+        <p class="negative-return portfolio-return">&darr; $<%=diff.toFixed(2)%> (<%=((diff/user.startingValue) * 100).toFixed(2)  %>%)</p>
       <% } %>
 
       <h5>Buying Power: $<%= user.balance.toFixed(2)%>  </h5>
@@ -41,76 +41,24 @@
         </thead>
 
         <tbody class="table-body">
-          <tr class='clickable-row' data-href="/bitcoin/show">
-            <td><big><a href="/bitcoin/show">Bitcoin</a></big></td>
-            <td><%= user.portfolio.bitcoin %></td>
-            <td>$<%= (prices.bitcoin).toFixed(2) %></td>
-            <td>$<%= (user.portfolio.bitcoin * prices.bitcoin).toFixed(2) %></td>
-            <% if (user.costs.bitcoin) { %>
-              <% let bitcoinDiff = prices.bitcoin - user.costs.bitcoin %>
-              <td <% if (bitcoinDiff >= 0) { %> class="positive-return"
-                <% } else { %> class="negative-return"<%}%>>
-                $<%= (bitcoinDiff).toFixed(2) %>
-                (<%=(bitcoinDiff/user.costs.bitcoin * 100).toFixed(2)%>%) %>
-              </td>
-            <% } else { %><td>N/A</td><% } %>
-          </tr>
-          <tr>
-            <td><big><a href="/ethereum/show">Ethereum</a></big></td>
-            <td><%= user.portfolio.ethereum %></td>
-            <td>$<%= (prices.ethereum).toFixed(2) %></td>
-            <td>$<%= (user.portfolio.ethereum * prices.ethereum).toFixed(2) %></td>
-            <% if (user.costs.ethereum) { %>
-              <% let ethereumDiff = prices.ethereum - user.costs.ethereum %>
-              <td <% if (ethereumDiff >= 0) { %> class="positive-return"
-                <% } else { %> class="negative-return"<%}%>>
-                $<%= (ethereumDiff).toFixed(2) %>
-                (<%=(ethereumDiff/user.costs.ethereum * 100).toFixed(2)%>%) %>
-              </td>
-            <% } else { %><td>N/A</td><% } %>
-          </tr>
-          <tr>
-            <td><big><a href="/zcash/show">Z Cash</a></big></td>
-            <td><%= user.portfolio.zcash %></td>
-            <td>$<%= (prices.zcash).toFixed(2) %></td>
-            <td>$<%= (user.portfolio.zcash * prices.zcash).toFixed(2) %></td>
-            <% if (user.costs.zcash) { %>
-              <% let zcashDiff = prices.zcash - user.costs.zcash %>
-              <td <% if (zcashDiff >= 0) { %> class="positive-return"
-                <% } else { %> class="negative-return"<%}%>>
-                $<%= (zcashDiff).toFixed(2) %>
-                (<%=(zcashDiff/user.costs.zcash * 100).toFixed(2)%>%) %>
-              </td>
-            <% } else { %><td>N/A</td><% } %>
-          </tr>
-          <tr>
-            <td><big><a href="/dash/show">Dash</a></big></td>
-            <td><%= user.portfolio.dash %></td>
-            <td>$<%= (prices.dash).toFixed(2) %></td>
-            <td>$<%= (user.portfolio.dash * prices.dash).toFixed(2) %></td>
-            <% if (user.costs.dash) { %>
-              <% let dashDiff = prices.dash - user.costs.dash %>
-              <td <% if (dashDiff >= 0) { %> class="positive-return"
-                <% } else { %> class="negative-return"<%}%>>
-                $<%= (dashDiff).toFixed(2) %>
-                (<%=(dashDiff/user.costs.dash * 100).toFixed(2)%>%) %>
-              </td>
-            <% } else { %><td>N/A</td><% } %>
-          </tr>
-          <tr>
-            <td><big><a href="/litecoin/show">Litecoin</a></big></td>
-            <td><%= user.portfolio.litecoin %></td>
-            <td>$<%= (prices.litecoin).toFixed(2) %></td>
-            <td>$<%= (user.portfolio.litecoin * prices.litecoin).toFixed(2) %></td>
-            <% if (user.costs.litecoin) { %>
-              <% let litecoinDiff = prices.litecoin - user.costs.litecoin %>
-              <td <% if (litecoinDiff >= 0) { %> class="positive-return"
-                <% } else { %> class="negative-return"<%}%>>
-                $<%= (litecoinDiff).toFixed(2) %>
-                (<%=(litecoinDiff/user.costs.litecoin * 100).toFixed(2)%>%) %>
-              </td>
-            <% } else { %><td>N/A</td><% } %>
-          </tr>
+          <% let coinArr = ["bitcoin", "ethereum", "zcash", "dash", "litecoin"]
+             for (let index in coinArr) {
+                let coin = coinArr[index] %>
+                <tr class='clickable-row' data-href="/<%= coin %>/show">
+                  <td><big><a href="/<%= coin %>/show"><%= coin %></a></big></td>
+                  <td><%= user.portfolio[coin] %></td>
+                  <td>$<%= (prices[coin]).toFixed(2) %></td>
+                  <td>$<%= (user.portfolio[coin] * prices[coin]).toFixed(2) %></td>
+                  <% if (user.costs[coin]) { %>
+                    <% let priceDiff = prices[coin] - user.costs[coin] %>
+                    <td <% if (priceDiff >= 0) { %> class="positive-return"
+                      <% } else { %> class="negative-return"<%}%>>
+                      $<%= (priceDiff).toFixed(2) %>
+                      (<%=(priceDiff/user.costs[coin] * 100).toFixed(2)%>%) %>
+                    </td>
+                  <% } else { %><td>N/A</td><% } %>
+                </tr>
+          <% } %>
         </tbody>
       </table>
 
