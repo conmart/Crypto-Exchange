@@ -27,7 +27,7 @@ router.put('/:coin/:price/buy', ensureAuthenticated, function(req, res){
   var amount = parseInt(req.body.numCoins);
   User.findById(req.user._id, function(err, user){
     if (err) throw err;
-    let purchaseTotal = req.params.price * amount;
+    let purchaseTotal = (req.params.price * amount).toFixed(2);
     // console.log('purchase total', purchaseTotal);
     user.balance = user.balance - purchaseTotal;
     let newAvgNum = (parseFloat(user.costs[coin]) * parseInt(user.portfolio[coin])
@@ -35,7 +35,6 @@ router.put('/:coin/:price/buy', ensureAuthenticated, function(req, res){
     let newAvgDenom = (parseInt(amount) + parseInt(user.portfolio[coin]));
     let newAvg = (newAvgNum/newAvgDenom).toFixed(2);
     user.costs[coin] = newAvg;
-    debugger
     user.portfolio[coin] += amount;
     user.save(function(err, savedUser){
       if (err) throw err;
@@ -52,7 +51,10 @@ router.put('/:coin/:price/sell', ensureAuthenticated, function(req, res){
   var amount = parseInt(req.body.numCoins);
   User.findById(req.user._id, function(err, foundUser){
     if (err) throw err;
-    foundUser.balance += (parseInt(req.params.price) * amount);
+    // console.log(typeof req.params.price);
+    // console.log(typeof parseFloat(req.params.price));
+    console.log(typeof parseFloat((parseFloat(req.params.price)).toFixed(2)));
+    foundUser.balance += parseFloat((parseFloat(req.params.price) * amount).toFixed(2));
     foundUser.portfolio[coin] = foundUser.portfolio[coin] - amount;
     if (foundUser.portfolio[coin] <= 0){
       foundUser.costs[coin] = 0;

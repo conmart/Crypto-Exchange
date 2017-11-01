@@ -58,7 +58,8 @@ nav {
 canvas {
   max-width: 90vw;
   max-height: 600px;
-  margin-left: 5%;
+  margin-left: 10%;
+  padding-right: 10%;
 }
 
 .coinAmount {
@@ -86,4 +87,9 @@ canvas {
 
 .negative-return {
   color: #e20404;
+}
+
+.register-error {
+  margin: 10px;
+  margin-bottom: -10px;
 }
