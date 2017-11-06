@@ -101,13 +101,13 @@ function getMyData(){
         Prices.create(newPrices, function(err, prices){
           if (err) throw err;
           // Change this to 5000 before demo
-          setTimeout(getMyData, 5000);
+          setTimeout(getMyData, 50000);
         })
       })
   });
 }
 
-// getMyData();
+getMyData();
 
 // Initialize Port
 app.set('port', process.env.PORT || 3000);
