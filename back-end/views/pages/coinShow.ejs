@@ -10,23 +10,33 @@
   </header>
   <main>
 
-    <div class="center-align">
+    <div class="center-align container">
 
       <h1><%= coin %></h1>
       <h3>$<%= prices[coin].toFixed(2) %></h3>
 
       <canvas class=<%= coin + "Chart" %> width="400" height="400"></canvas>
 
-      <h5>Buying Power: $<%= user.balance.toFixed(2) %> </h5>
-      <br>
-      <% if (user.balance > prices[coin]) { %>
-        <a class="waves-effect waves-light btn modal-trigger" href=<%="#buy"+user.username%>>Buy</a>
-      <% } else { %>
-        <p class="insufficient-funds"> You don't have enough funds to purchase <%=coin%> </p>
-      <% } %>
-      <% if (user.portfolio[coin]) { %>
-        <a class="waves-effect waves-light btn modal-trigger" href=<%="#sell"+user.username%>>Sell</a>
-      <% } %>
+      <div class="row center-align">
+        <div>
+          <h5>Buying Power: $<%= user.balance.toFixed(2) %> </h5>
+        </div>
+        <br>
+        <div class="row">
+          <% if (user.balance > prices[coin]) { %>
+            <a class="waves-effect waves-light btn modal-trigger purchase col s5 push-s1 m4 push-m2 l3 push-l2" href=<%="#buy"+user.username%>>Buy</a>
+            <% if (user.portfolio[coin]) { %>
+              <a class="waves-effect waves-light btn modal-trigger purchase col s5 push-s1 m4 push-m2 l3 push-l4" href=<%="#sell"+user.username%>>Sell</a>
+            <% } %>
+          <% } else { %>
+            <p class="insufficient-funds col s12"> You don't have enough funds to purchase <%=coin%> </p>
+            <% if (user.portfolio[coin]) { %>
+              <a class="waves-effect waves-light btn modal-trigger purchase col s12 m6 push-m3 l4 push-l4" href=<%="#sell"+user.username%>>Sell</a>
+            <% } %>
+          <% } %>
+
+        </div>
+      </div>
 
       <br>
 
@@ -68,7 +78,9 @@
         </div>
       <% } %>
 
-      <a href="/profile" class="btn footer-btn">Return to dashboard</a>
+      <div class="row center-align">
+        <a href="/profile" class="btn footer-btn col s12 m6 push-m3 l4 push-l4">Return to dashboard</a>
+      </div>
 
     </div>
 

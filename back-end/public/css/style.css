@@ -67,8 +67,6 @@ nav {
 canvas {
   max-width: 90vw;
   max-height: 600px;
-  margin-left: 10%;
-  padding-right: 10%;
 }
 
 .coinAmount {
@@ -101,4 +99,15 @@ canvas {
 .register-error {
   margin: 10px;
   margin-bottom: -10px;
+}
+
+.testSizes {
+  border-style: solid;
+  border-color: pink;
+  height: 40px;
+  margin: 50px;
+}
+
+.purchase {
+  margin: 5px;
 }

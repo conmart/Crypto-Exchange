@@ -107,7 +107,7 @@ function getMyData(){
   });
 }
 
-getMyData();
+// getMyData();
 
 // Initialize Port
 app.set('port', process.env.PORT || 3000);
